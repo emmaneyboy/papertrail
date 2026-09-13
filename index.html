@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Turn Markdown into a polished, paginated PDF directly in your browser.">
+  <title>Papertrail | Markdown to PDF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Papertrail home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>papertrail</span>
+      </a>
+      <div class="topbar-actions">
+        <span class="format-note"><span class="status-dot"></span> PDF-ready workspace</span>
+        <button class="button button-quiet" id="clearButton" type="button">Clear</button>
+        <label class="toggle-control" title="Include page numbers in the PDF">
+          <input id="pageNumbersInput" type="checkbox" checked>
+          <span>Page numbers</span>
+        </label>
+        <div class="color-controls" aria-label="PDF heading colors">
+          <label class="color-control" title="Choose H1 color">
+            <span>H1</span>
+            <input id="headingH1Color" type="color" value="#2f5d50" aria-label="H1 color">
+          </label>
+          <label class="color-control" title="Choose H2 color">
+            <span>H2</span>
+            <input id="headingH2Color" type="color" value="#2f5d50" aria-label="H2 color">
+          </label>
+          <label class="color-control" title="Choose H3 color">
+            <span>H3</span>
+            <input id="headingH3Color" type="color" value="#2f5d50" aria-label="H3 color">
+          </label>
+        </div>
+        <button class="button button-primary" id="exportButton" type="button"><span aria-hidden="true">↓</span> Export PDF</button>
+      </div>
+    </header>
+
+    <section class="intro" aria-labelledby="pageTitle">
+      <div>
+        <p class="eyebrow">Markdown / document studio</p>
+        <h1 id="pageTitle">Write once.<br><em>Print beautifully.</em></h1>
+      </div>
+      <p class="intro-copy">A calm space for turning structured thoughts into a PDF that respects every line, table, and code block.</p>
+    </section>
+
+    <section class="workspace" aria-label="Markdown editor and document preview">
+      <div class="panel editor-panel">
+        <div class="panel-header">
+          <div class="panel-label"><span class="panel-number">01</span><span>Source</span></div>
+          <div class="source-actions">
+            <label class="icon-button" title="Open a Markdown file" aria-label="Open a Markdown file">
+              <span aria-hidden="true">↥</span>
+              <input id="fileInput" type="file" accept=".md,.markdown,.txt,text/markdown,text/plain">
+            </label>
+            <button class="icon-button" id="downloadButton" type="button" title="Download Markdown" aria-label="Download Markdown">↧</button>
+          </div>
+        </div>
+        <div class="editor-wrap" id="dropZone">
+          <textarea id="markdownInput" spellcheck="false" aria-label="Markdown source"></textarea>
+          <div class="drop-hint" id="dropHint">Drop a Markdown file here</div>
+        </div>
+        <div class="panel-footer">
+          <span id="documentName">untitled.md</span>
+          <span id="sourceStats">0 words · 0 characters</span>
+        </div>
+      </div>
+
+      <div class="panel preview-panel">
+        <div class="panel-header">
+          <div class="panel-label"><span class="panel-number">02</span><span>Preview</span></div>
+          <span class="live-label"><span class="live-pulse"></span>Live</span>
+        </div>
+        <article class="preview-content markdown-body" id="preview" aria-live="polite"></article>
+        <div class="panel-footer preview-footer">
+          <span>A4 · 12 mm margins</span>
+          <span id="pageEstimate">Ready to export</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <span>Built for the long read.</span>
+      <span>Everything stays in your browser.</span>
+    </footer>
+  </main>
+
+  <div class="pdf-stage" aria-hidden="true">
+    <article class="pdf-document markdown-body" id="pdfDocument"></article>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.6/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
